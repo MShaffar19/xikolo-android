@@ -99,9 +99,9 @@ fun <T : Video> T.cast(activity: Activity, autoPlay: Boolean): PendingResult<Rem
         // large image, used on the Cast Player page and Lock Screen on KitKat
         mediaMetadata.addImage(image)
 
-        val castMetadata = MediaInfo.Builder(streamToPlay?.hdUrl)
+        val castMetadata = MediaInfo.Builder(streamToPlay?.hlsUrl)
             .setStreamType(MediaInfo.STREAM_TYPE_BUFFERED)
-            .setContentType("videos/mp4")
+            .setContentType("application/x-mpegURL")
             .setMetadata(mediaMetadata)
             .build()
 
@@ -110,7 +110,8 @@ fun <T : Video> T.cast(activity: Activity, autoPlay: Boolean): PendingResult<Rem
             MediaLoadOptions.Builder()
                 .setAutoplay(autoPlay)
                 .setPlayPosition(progress.toLong())
-                .build())
+                .build()
+        )
     } else {
         return null
     }
